@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:context = "http://www.springframework.org/schema/context"
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+   <bean id = "helloWorld" class = "com.packages.springbasic.HelloWorld">
+      <property name = "message" value = "Hello World!"/>
+   </bean>
+   
+   <!-- Spring - Annotation Based Configuration -->
+   <context:annotation-config/>
+   
+   <bean id = "author" class = "com.packages.annotationconfig.Author">
+   		<property name = "name" value = "JavaStudio"/>
+   		<property name = "address" value = "Java Address"/>
+   		<property name = "email" value = "javastudio@gmail.com"/>
+   		<property name = "institution" value = "Orgware Construct"/>
+   </bean>
+   
+   <!-- Qualifier and autowired -->
+   <bean id = "authorProfile" class = "com.packages.annotation.AuthorProfile"/>
+   
+   <!-- Defination for Author 1 bean -->
+   <bean id = "author1" class = "com.packages.annotation.Author">
+   		<property name = "name" value = "JavaStudio"/>
+   		<property name = "address" value = "Java Address"/>
+   		<property name = "email" value = "javastudio@gmail.com"/>
+   		<property name = "institution" value = "Orgware Construct"/>
+   </bean>
+   
+   <!-- Defination for Author 2 bean -->
+   <bean id = "author2" class = "com.packages.annotation.Author">
+   		<property name = "name" value = "Sujan Hyoju"/>
+   		<property name = "address" value = "Banepa"/>
+   		<property name = "email" value = "sujanhyoju@gmail.com"/>
+   		<property name = "institution" value = "Orgware Construct"/>
+   </bean>
+   
+
+</beans>

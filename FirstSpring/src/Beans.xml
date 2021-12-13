@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- First example
+	<bean id="helloWorld" class="com.springstart.HelloWorld">
+	</bean>  -->
+
+	<!-- Second example 
+	<bean id="springExample" class="com.beanlifecycle.Example"
+		init-method="init" destroy-method="destroy">
+		<property name="message"
+			value="Hello World from Example class!" />
+	</bean>
+	<bean class="com.beanlifecycle.InitExample"></bean> -->
+	
+	<!-- Third example -->
+	<bean id="parentExamples" class = "com.beaninheritance.ParentExample">
+		<property name = "name" value = "Sujan Hyoju"></property>
+		<property name = "address" value = "Banepa"></property>
+		
+	</bean>
+	
+	<bean id = "childExamples" class = "com.beaninheritance.ChildExample" parent="parentExamples">
+		<property name = "name" value = "Sandesh Lawaju"></property>
+		<property name = "contact" value = "984341"></property>
+	</bean>
+	
+	<!-- Deependency Injection with constructor and setter method -->
+	<bean id="tyreBean1" class = "com.dependencyinjectionexample.Tyres">
+		<property name = "name" value = "Michigan"></property>
+		<property name = "place" value = "Japan"></property>
+		<property name = "message" value = "This is michiagn tyre"></property>
+	
+	</bean>
+	<bean id = "TeslaBean" class = "com.dependencyinjectionexample.TeslaEngine">
+		<property name = "company" value = "Tesla"></property>
+		<property name = "cost" value = "50000"></property>
+	</bean>
+	
+	<bean id="tyreBean2" class = "com.dependencyinjectionexample.Tyres">
+		<property name = "name" value = "VR46"></property>
+		<property name = "place" value = "Italy"></property>
+		<property name = "message" value = "This tyre is used by VR46"></property>
+	</bean>
+	<!-- Depenendency injection through setter method -->
+	<bean id = "injectionThroughSetter" class = "com.dependencyinjectionexample.VehicleMain">
+		<property name = "engine" ref = "TeslaBean"></property>
+		<property name ="tyre" ref = "tyreBean1"></property>
+	</bean>
+	<!-- Injection through constructor -->
+	<bean id = "injectionThroughConstructor" class ="com.dependencyinjectionexample.VehicleMain" >
+		<constructor-arg name = "engine" ref = "TeslaBean"></constructor-arg>
+		<constructor-arg name = "tyre" ref = "tyreBean2"></constructor-arg>
+	</bean>
+	
+	<bean id = "injectionThroughConstructor1" class ="com.dependencyinjectionexample.VehicleMain" >
+		<constructor-arg name = "engine" ref = "TeslaBean"></constructor-arg>
+	</bean>
+</beans>

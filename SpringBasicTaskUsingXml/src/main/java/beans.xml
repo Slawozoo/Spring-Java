@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id = "articleDao" class = "com.finaltask.corejavafinaltask.dao.impl.ArticleDaoImpl"/>
+	
+	<bean id = "authorDao" class = "com.finaltask.corejavafinaltask.dao.impl.AuthorDAOImpl"/>
+	
+	<bean id = "articleOperation" class = "com.finaltask.corejavafinaltask.dao.impl.ArticleOperationsImpl"/>
+	
+	<bean id = "downloadFile" class = "com.finaltask.corejavafinaltask.DownloadFile"/>
+	
+	<!-- 
+	<bean id ="mainClass" class = "com.finaltask.corejavafinaltask.Main">
+		<constructor-arg name = "downloadFile" ref = "downloadFile"/>
+		<constructor-arg name = "articleDao" ref = "articleDao"/>
+		<constructor-arg name = "authorDao" ref = "authorDao"/>
+		<constructor-arg name = "articleOperations" ref = "articleOperation"/>
+	</bean> -->
+	
+	<bean id ="pubApp" class = "com.finaltask.corejavafinaltask.PublicationApp">
+		<constructor-arg name = "downloadFile" ref = "downloadFile"/>
+		<constructor-arg name = "articleDao" ref = "articleDao"/>
+		<constructor-arg name = "authorDao" ref = "authorDao"/>
+		<constructor-arg name = "articleOperations" ref = "articleOperation"/>
+	</bean>
+</beans>

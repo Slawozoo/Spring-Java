@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context = "http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+   		http://www.springframework.org/schema/context/spring-context.xsd">
+<!--  
+ <context:annotation-config/>
+	<bean id = "articleDao" class = "com.finaltask.corejavafinaltask.dao.impl.ArticleDaoImpl"/>
+	
+	<bean id = "authorDao" class = "com.finaltask.corejavafinaltask.dao.impl.AuthorDAOImpl"/>
+	
+	<bean id = "articleOperation" class = "com.finaltask.corejavafinaltask.dao.impl.ArticleOperationsImpl"/>
+	
+	<bean id = "downloadFile" class = "com.finaltask.corejavafinaltask.DownloadFile"/>
+	
+	<bean id ="pubApp" class = "com.finaltask.corejavafinaltask.PublicationApp"/>
+-->
+</beans>
