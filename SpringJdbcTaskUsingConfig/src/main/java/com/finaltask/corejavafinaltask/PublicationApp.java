@@ -4,20 +4,23 @@ import java.util.Scanner;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
+
 import com.finaltask.corejavafinaltask.dao.IArticleDao;
 import com.finaltask.corejavafinaltask.dao.IArticleOperations;
 import com.finaltask.corejavafinaltask.dao.IAuthorDAO;
 
+@Component
+@ComponentScan("com.finaltask.corejavafinaltask")
 public class PublicationApp {
-	
 	DownloadFile downloadFile;
 	IArticleDao articleDao;
 	IAuthorDAO authorDao;
 	IArticleOperations articleOperations;
-	DataSource dataSource;
 	
-	public PublicationApp() {}
-	
+	@Autowired
 	public PublicationApp(DownloadFile downloadFile, IArticleDao articleDao, IAuthorDAO authorDao,
 			IArticleOperations articleOperations) {
 		this.downloadFile = downloadFile;

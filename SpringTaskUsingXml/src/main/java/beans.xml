@@ -5,10 +5,23 @@
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans 
         http://www.springframework.org/schema/beans/spring-beans.xsd">
+        
+     <!-- Initialization for data source -->
+   <bean id = "dataSource" 
+      class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name = "driverClassName" value = "org.postgresql.Driver"/>
+      <property name = "url" value = "jdbc:postgresql://localhost/db_App"/>
+      <property name = "username" value = "postgres"/>
+      <property name = "password" value = "admin123"/>
+   </bean>
 
-	<bean id = "articleDao" class = "com.finaltask.corejavafinaltask.dao.impl.ArticleDaoImpl"/>
+	<bean id = "articleDao" class = "com.finaltask.corejavafinaltask.dao.impl.ArticleDaoImpl">
+		<constructor-arg name = "dataSource" ref = "dataSource" ></constructor-arg>
+	</bean>
 	
-	<bean id = "authorDao" class = "com.finaltask.corejavafinaltask.dao.impl.AuthorDAOImpl"/>
+	<bean id = "authorDao" class = "com.finaltask.corejavafinaltask.dao.impl.AuthorDAOImpl">
+		<constructor-arg name = "dataSource" ref = "dataSource" ></constructor-arg>
+	</bean>
 	
 	<bean id = "articleOperation" class = "com.finaltask.corejavafinaltask.dao.impl.ArticleOperationsImpl"/>
 	

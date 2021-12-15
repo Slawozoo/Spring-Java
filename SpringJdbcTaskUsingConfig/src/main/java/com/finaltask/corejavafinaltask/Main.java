@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.finaltask.corejavafinaltask.dao.IArticleDao;
@@ -21,8 +22,11 @@ import com.finaltask.corejavafinaltask.domain.Article;
 public class Main {
 
 	public static void main(String[] args) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-		PublicationApp pubApp = (PublicationApp) context.getBean("pubApp");
+		ApplicationContext context = 
+		         new AnnotationConfigApplicationContext(PublicationAppConfig.class);
+
+		//Getting beans from Config class
+		PublicationApp pubApp = context.getBean(PublicationApp.class);
 		
 		int switchCase = pubApp.getMenuChoice();
 		try {
@@ -34,8 +38,6 @@ public class Main {
 			case 2:
 				/*File from the downloaded URL*/
 				File file = new File("Articles.json");
-				System.out.println(file.getAbsolutePath());
-				System.out.println(file.getPath());
 				
 				/*Reading JSON file*/
 				List<Article> articleList = pubApp.articleOperations.readFile(file);

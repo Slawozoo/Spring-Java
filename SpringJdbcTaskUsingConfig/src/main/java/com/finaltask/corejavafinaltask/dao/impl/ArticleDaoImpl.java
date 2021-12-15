@@ -23,12 +23,15 @@ import com.finaltask.corejavafinaltask.jdbc.SqlCommands;
 public class ArticleDaoImpl implements IArticleDao {
 	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplateObject;
+	private AuthorDAOImpl authorDao;
 
 	public ArticleDaoImpl() {}
 	//This is the method to be used to initialize database resources ie. connection.
 	public ArticleDaoImpl(DataSource dataSource) {
 		this.dataSource = dataSource;
 		this.jdbcTemplateObject = new JdbcTemplate(this.dataSource);
+		this.authorDao = new AuthorDAOImpl(dataSource);
+		
 	}
 
 	/**
@@ -43,11 +46,10 @@ public class ArticleDaoImpl implements IArticleDao {
 	 */
 	public void insertIntoTable(List<Article> articleList) {
 		System.out.println(articleList);
-		AuthorDAOImpl authDao = new AuthorDAOImpl(dataSource);
 		for(int i = 0; i < articleList.size(); i++) {
 			jdbcTemplateObject.update(SqlCommands.getInsertIntoArticleTableSql(), articleList.get(i).getTitle(), articleList.get(i).getPublishedDate());
 			
-			authDao.insertAuthorTable(articleList.get(i).getAuthorList(), articleList.get(i).getTitle());
+			authorDao.insertAuthorTable(articleList.get(i).getAuthorList(), articleList.get(i).getTitle());
 		}
 	}
 
@@ -68,14 +70,15 @@ public class ArticleDaoImpl implements IArticleDao {
 	 *Retrieve Article table
 	 */
 	public List<Article> retrieveArticleTable() {
-		List<Article> articleList = jdbcTemplateObject.query(SqlCommands.getRetrieveAllArticle(), new ArticleMapper());
+		List<Article> articleList = jdbcTemplateObject.query(SqlCommands.getRetrieveAllArticle(), 
+				new ArticleMapper());
 		
 		Iterator itr = articleList.iterator();
 		while(itr.hasNext()) {
 			System.out.println(itr.next());
 			System.out.println("\n");
 		}
-		AuthorDAOImpl authorDao = new AuthorDAOImpl(dataSource);
+//		AuthorDAOImpl authorDao = new AuthorDAOImpl(dataSource);
 		authorDao.retrieveAuthorTable();
 		return articleList;
 	}
@@ -115,9 +118,8 @@ public class ArticleDaoImpl implements IArticleDao {
 		jdbcTemplateObject.update(SqlCommands.getInsertIntoArticleTableSql(), article.getTitle(), article.getPublishedDate());
 
 			// Insert into author table
-			AuthorDAOImpl authDAO = new AuthorDAOImpl(dataSource);
 			
-			authDAO.insertAuthorTableSql(authorList, article);
+			authorDao.insertAuthorTableSql(authorList, article);
 			System.out.println("Data inserted sucessfully.!!!");
 	}
 
@@ -135,7 +137,6 @@ public class ArticleDaoImpl implements IArticleDao {
 
 			System.out.println("Title: "+article.getTitle());
 			System.out.println("Published Date: "+article.getPublishedDate());
-			AuthorDAOImpl authorDao = new AuthorDAOImpl(dataSource);
 			authorDao.generateAuthorList(article.getId());
 
 		return article;
@@ -145,7 +146,6 @@ public class ArticleDaoImpl implements IArticleDao {
 	 *Retrieve article using author email
 	 */
 	public void retrieveArticleByAuthorEmail() {
-		AuthorDAOImpl authorDao = new AuthorDAOImpl(dataSource);
 		Scanner scn = new Scanner(System.in);
 		System.out.print("Enter the email of author to be searched: ");
 		String emailSearch = scn.next();
@@ -170,7 +170,6 @@ public class ArticleDaoImpl implements IArticleDao {
 		Article article = jdbcTemplateObject.queryForObject(SqlCommands.getRetrieveArticleByTitle(),new Object[]{titleSearch}, 
 				new ArticleMapper());
 		int articleId = selectIDConditionTitle(titleSearch);
-		AuthorDAOImpl authorDao = new AuthorDAOImpl(dataSource);
 		authorDao.deleteAuthorByTitle(articleId);
 		jdbcTemplateObject.update(SqlCommands.getDeleteArticleById(), articleId);
 		System.out.println("Article deleted sucessfully.!!!!");
@@ -180,7 +179,6 @@ public class ArticleDaoImpl implements IArticleDao {
 	 *Delete article using author email
 	 */
 	public void deleteArticleByAuthorEmail() {
-		AuthorDAOImpl authorDao = new AuthorDAOImpl(dataSource);
 		Scanner scn = new Scanner(System.in);
 		System.out.print("Enter the email of author to be searched: ");
 		String emailSearch = scn.next();
@@ -232,7 +230,6 @@ public class ArticleDaoImpl implements IArticleDao {
 	 */
 	public List<Article> generateArticle() {
 		List<Article> articleList = jdbcTemplateObject.query(SqlCommands.getRetrieveAllArticle(), new ArticleMapper());
-		AuthorDAOImpl authorDao = new AuthorDAOImpl(dataSource);
 		for(int i = 0; i< articleList.size(); i++) {
 			Article article = new Article();
 			String title = articleList.get(i).getTitle();
