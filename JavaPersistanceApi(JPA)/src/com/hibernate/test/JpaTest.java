@@ -1,13 +1,13 @@
 package com.hibernate.test;
 
+import java.util.List;
 import java.util.Scanner;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.hibernate.model.Article;
+import com.hibernate.model.Author;
 
 public class JpaTest {
 
@@ -30,12 +30,16 @@ public class JpaTest {
 		switch(cases) {
 		case 1:
 			//For creating table and insert into DB
-		mainJpaApp.articleDao.insertArticleAuthor();
+			UserInput userInput = new UserInput();
+			Article article = userInput.getArticleFromUser();
+			mainJpaApp.articleDao.insertArticleAuthor(article);
 	
 		break;
 		case 2:
 			//For retreiving data
-			mainJpaApp.articleDao.retrieveArticleAuthor();
+			Article articleRetrieve = mainJpaApp.articleDao.retrieveArticleAuthor();
+			displayArticle(articleRetrieve);
+			
 		break;
 		case 3:
 			//For updating data
@@ -47,7 +51,8 @@ public class JpaTest {
 		break;
 		case 5:
 			//For retreiving data using Criteria API
-			mainJpaApp.articleDao.retrieveArticleAuthorUsingCriteriaApi();;
+			List<Article> articleList = mainJpaApp.articleDao.retrieveArticleAuthorUsingCriteriaApi();
+			displayAllArticle(articleList);
 		break;
 		case 6:
 			//For updating record from DB using Criteria API
@@ -55,11 +60,40 @@ public class JpaTest {
 		break;
 		case 7:
 			//For deleting record from DB using Criteria API
-//			mainJpaApp.articleDao.deleteArticleAuthor();
+			mainJpaApp.articleDao.deleteArticleAuthor();
 		break;
 		default:
 			System.out.println("Enter valid case only.!!");
+		}
+	}
 
+	/**
+	 * Display article and author
+	 */
+	private static void displayArticle(Article article) {
+		System.out.println("Article: ");
+		System.out.println("ID: "+article.getId()+" Title: "+article.getTitle()+" Published Date: "+article.getPublishedDate());
+		for(Author author: article.getAuthorList()) {
+		System.out.println("Authors : "+author.getFirstName()+" "+author.getLastName()+
+				" "+author.getAddress()+" "+author.getInstitution()+" "+author.getEmail());
+		}
+		
+	}
+	private static void displayAllArticle(List<Article> articleList) {
+		for(Article article: articleList) {
+			System.out.println("-------------------------------");
+			System.out.println("Article ID: "+article.getId());
+			System.out.println("Title: "+article.getTitle());
+			System.out.println("Published Date: "+article.getPublishedDate());
+			for(Author author:article.getAuthorList()) {
+				System.out.println("-------------------------------");
+				System.out.println("\tFirst Name: "+author.getFirstName());
+				System.out.println("\tLast Name: "+ author.getLastName());
+				System.out.println("\tAddress: "+author.getAddress());
+				System.out.println("\tInstitution: "+author.getInstitution());
+				System.out.println("\tEmail: "+author.getEmail());
+				System.out.println("-------------------------------");
+			}
 		}
 	}
 

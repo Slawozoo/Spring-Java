@@ -4,9 +4,9 @@ package com.hibernate.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,12 +19,13 @@ public class Article {
 	@Id @GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
+	@Column(name = "title")
 	private String title;
 	
 	@Column(name = "published_date")
 	private String publishedDate;
 
-	@OneToMany(targetEntity = Author.class)
+	@OneToMany(targetEntity = Author.class, fetch = FetchType.EAGER)
 	private List<Author> authorList = new ArrayList<Author>();
 	
 	public int getId() {

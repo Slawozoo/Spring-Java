@@ -1,23 +1,20 @@
 package com.hibernate.dao;
 
+import java.util.List;
+
 import com.hibernate.model.Article;
 
 public interface IArticleDao {
 
 	/**
-	 * Takes user input from user
-	 */
-	public Article setArticleAuthor();
-
-	/**
 	 * Create DB and insert into Article and Author table
 	 */
-	public void insertArticleAuthor();
+	public void insertArticleAuthor(Article article);
 
 	/**
 	 * Retrieve Article and Author from DB
 	 */
-	public void retrieveArticleAuthor();
+	public Article retrieveArticleAuthor();
 
 	/**
 	 * Update Article and author from DB
@@ -32,7 +29,7 @@ public interface IArticleDao {
 	/**
 	 * Retrieve Article and Author from DB
 	 */
-	public void retrieveArticleAuthorUsingCriteriaApi();
+	public List<Article> retrieveArticleAuthorUsingCriteriaApi();
 
 	/**
 	 * Update Article and author from DB
@@ -43,5 +40,10 @@ public interface IArticleDao {
 	 * Delete Article and Author from db
 	 */
 	public void deleteArticleAuthorUsingCriteriaApi();
+	
+	/**
+	 * Retrieve all Article
+	 */
+	public List<Article> retrieveAllArticle();
 	
 }
