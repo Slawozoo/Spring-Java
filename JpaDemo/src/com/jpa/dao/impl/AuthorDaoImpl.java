@@ -4,43 +4,35 @@ import java.util.List;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
-import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
 
 import com.jpa.dao.IAuthorDao;
 import com.jpa.model.Authors;
+import com.jpa.test.UserInput;
 
 public class AuthorDaoImpl implements IAuthorDao {
-
-	@Override
-	public Authors setAuthor() {
-		Authors author = new Authors();
-		Scanner scn = new Scanner(System.in);
-
-		System.out.print("Enter first name of author: ");
-		author.setFirstName(scn.next());
-		System.out.print("Enter last name of author: ");
-		author.setLastName(scn.next());
-		System.out.print("Enter email of author: ");
-		author.setEmail(scn.next());
-		System.out.print("Enter address of author: ");
-		author.setAddress(scn.next());
-		System.out.print("Enter institution of author: ");
-		author.setInstitution(scn.next());
-		return author;
+	EntityManagerFactory emFactory;
+	EntityManager entityManager;
+	
+	
+	public AuthorDaoImpl(EntityManagerFactory emFactory, EntityManager entityManager) {
+		this.emFactory = Persistence.createEntityManagerFactory("Author_JPA");
+		this.entityManager = this.emFactory.createEntityManager();
 	}
 
 	@Override
-	public void insertAuthor(EntityManager entityManager) {
+	public void insertAuthor(Authors author) {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
-		Authors author = setAuthor();
+		
 		entityManager.persist(author);
 		entityTransaction.commit();
 		entityManager.close();
@@ -48,52 +40,38 @@ public class AuthorDaoImpl implements IAuthorDao {
 	}
 
 	@Override
-	public void retrieveAuthor(EntityManager entityManager) {
+	public Authors retrieveAuthor() {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		System.out.println("Enter the id to retrieve author: ");
 		Scanner scn = new Scanner(System.in);
 		int id = scn.nextInt();
 		Authors author = entityManager.find(Authors.class, id);
-		if (author != null) {
-//			System.out.println(author.toString());
-			System.out.println("FirstName: " + author.getFirstName() + " LastName: " + author.getLastName()
-					+ " Address: " + author.getAddress() + " Institution: " + author.getInstitution() + " Email: "
-					+ author.getEmail());
-		}
+		
 		entityTransaction.commit();
 		entityManager.close();
 
+		return author;
 	}
 
 	@Override
-	public void updateAuthor(EntityManager entityManager) {
+	public void updateAuthor() {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		Scanner scn = new Scanner(System.in);
 		System.out.println("Enter the id to update author: ");
 		int id = scn.nextInt();
-
+		UserInput userInput = new UserInput();
 		entityTransaction.begin();
 		Authors author = entityManager.find(Authors.class, id);
-
-		System.out.print("First Name: ");
-		author.setFirstName(scn.next());
-		System.out.print("Last Name: ");
-		author.setLastName(scn.next());
-		System.out.print("Institution : ");
-		author.setInstitution(scn.next());
-		System.out.print("Address : ");
-		author.setAddress(scn.next());
-		System.out.print("Email : ");
-		author.setEmail(scn.next());
-
-		System.out.println("Author updated sucessfully.!!!");
+		Authors auth = userInput.getInputFromUserToUpdate(author);
+		
 		entityTransaction.commit();
+		System.out.println("Author updated sucessfully.!!!");
 		entityManager.close();
 	}
 
 	@Override
-	public void deleteAuthor(EntityManager entityManager) {
+	public void deleteAuthor() {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		Scanner scn = new Scanner(System.in);
 		System.out.println("Enter the id to delete author: ");
@@ -103,12 +81,13 @@ public class AuthorDaoImpl implements IAuthorDao {
 		Authors author = entityManager.find(Authors.class, id);
 		entityManager.remove(author);
 		entityTransaction.commit();
+		System.out.println("Author deleted sucessfully!!!!!");
 		entityManager.close();
 
 	}
 
 	@Override
-	public void retrieveAuthorName(EntityManager entityManager) {
+	public void retrieveAuthorName() {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		// Scalar function
@@ -124,7 +103,7 @@ public class AuthorDaoImpl implements IAuthorDao {
 	}
 
 	@Override
-	public void updateAuthorName(EntityManager entityManager) {
+	public void updateAuthorName() {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		Scanner scn = new Scanner(System.in);
 		System.out.println("Enter the id to update author: ");
@@ -149,7 +128,7 @@ public class AuthorDaoImpl implements IAuthorDao {
 	}
 
 	@Override
-	public void deleteAuthorUsingId(EntityManager entityManager) {
+	public void deleteAuthorUsingId() {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		Scanner scn = new Scanner(System.in);
 		System.out.println("Enter the id to delete author: ");
@@ -166,7 +145,7 @@ public class AuthorDaoImpl implements IAuthorDao {
 	}
 
 	@Override
-	public void retrieveAuthorUsingCriteriaApi(EntityManager entityManager) {
+	public void retrieveAuthorUsingCriteriaApi() {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Authors> criteriaQuery = criteriaBuilder.createQuery(Authors.class);
 		Root<Authors> rootAuthor = criteriaQuery.from(Authors.class);
@@ -179,7 +158,7 @@ public class AuthorDaoImpl implements IAuthorDao {
 	}
 
 	@Override
-	public void updateAuthorNameUsingCriteriaApi(EntityManager entityManager) {
+	public void updateAuthorNameUsingCriteriaApi() {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		Scanner scn = new Scanner(System.in);
@@ -220,7 +199,7 @@ public class AuthorDaoImpl implements IAuthorDao {
 	}
 
 	@Override
-	public void deleteAuthorUsingCriteriaApi(EntityManager entityManager) {
+	public void deleteAuthorUsingCriteriaApi() {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		Scanner scn = new Scanner(System.in);

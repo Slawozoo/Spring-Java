@@ -2,12 +2,10 @@ package com.jpa.test;
 
 import java.util.Scanner;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.jpa.model.Authors;
 
 public class Main {
 
@@ -15,8 +13,6 @@ public class Main {
 		ApplicationContext context = new AnnotationConfigApplicationContext(MainConfig.class);
 
 		MainApp mainApp = context.getBean(MainApp.class);
-		EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("Author_JPA");
-		EntityManager entityManager = emFactory.createEntityManager();
 		Scanner scn = new Scanner(System.in);
 		System.out.println("Enter the case you want to perform: ");
 		System.out.println("1. Create and insert into Authors table: ");
@@ -30,50 +26,62 @@ public class Main {
 		System.out.println("9. Update Authors using Author id in JPA Criteria API: ");
 		System.out.print("10. Delete Authors using Author id in JPA Criteria API: ");
 		int cases = scn.nextInt();
+		
 		switch (cases) {
 		case 1:
 			// Create and insert into authors table
-			mainApp.authorDao.insertAuthor(entityManager);
+			UserInput userInput = new UserInput();
+			Authors author = userInput.getInputFromUser();
+			mainApp.authorDao.insertAuthor(author);
 			break;
 		case 2:
 			// Retrieveing from authors table
-			mainApp.authorDao.retrieveAuthor(entityManager);
+			Authors authorRetrieve = mainApp.authorDao.retrieveAuthor();
+			displayAuthor(authorRetrieve);
 			break;
 		case 3:
 			// Update author using author ID
-			mainApp.authorDao.updateAuthor(entityManager);
+			mainApp.authorDao.updateAuthor();
 			break;
 		case 4:
 			// Delete author using author ID
-			mainApp.authorDao.deleteAuthor(entityManager);
+			mainApp.authorDao.deleteAuthor();
 			break;
 		case 5:
 			// retrieve author first and last name
-			mainApp.authorDao.retrieveAuthorName(entityManager);
+			mainApp.authorDao.retrieveAuthorName();
 			break;
 		case 6:
 			// update authors using JPQL
-			mainApp.authorDao.updateAuthorName(entityManager);
+			mainApp.authorDao.updateAuthorName();
 			break;
 		case 7:
 			// Delete authors using JPQL
-			mainApp.authorDao.deleteAuthorUsingId(entityManager);
+			mainApp.authorDao.deleteAuthorUsingId();
 			break;
 		case 8:
 			// Retrieve authors using Criteria API
-			mainApp.authorDao.retrieveAuthorUsingCriteriaApi(entityManager);
+			mainApp.authorDao.retrieveAuthorUsingCriteriaApi();
 			break;
 		case 9:
 			// update authors using Criteria API
-			mainApp.authorDao.updateAuthorNameUsingCriteriaApi(entityManager);
+			mainApp.authorDao.updateAuthorNameUsingCriteriaApi();
 			break;
 		case 10:
 			// Delete authors using Criteria API
-			mainApp.authorDao.deleteAuthorUsingCriteriaApi(entityManager);
+			mainApp.authorDao.deleteAuthorUsingCriteriaApi();
 			break;
 		default:
 			System.out.println("Choose the valid cases only.!!!");
 		}
-		emFactory.close();
+	}
+
+	private static void displayAuthor(Authors author) {
+		if (author != null) {
+			System.out.println("FirstName: " + author.getFirstName() + " LastName: " + author.getLastName()
+					+ " Address: " + author.getAddress() + " Institution: " + author.getInstitution() + " Email: "
+					+ author.getEmail());
+		}
+		
 	}
 }

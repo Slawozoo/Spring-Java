@@ -7,58 +7,53 @@ import com.jpa.model.Authors;
 public interface IAuthorDao {
 
 	/**
-	 * Takes user input from user
-	 */
-	public Authors setAuthor();
-
-	/**
 	 * Create DB and insert into Author table
 	 */
-	public void insertAuthor(EntityManager entityManager);
+	public void insertAuthor(Authors author);
 
 	/**
 	 * Retrieve Author from DB
 	 */
-	public void retrieveAuthor(EntityManager entityManager);
+	public Authors retrieveAuthor();
 
 	/**
 	 * Update author from DB
 	 */
-	public void updateAuthor(EntityManager entityManager);
+	public void updateAuthor();
 
 	/**
 	 * Delete Author from db
 	 */
-	public void deleteAuthor(EntityManager entityManager);
+	public void deleteAuthor();
 
 	/**
 	 * Retrieve Author from DB using JPQL
 	 */
-	public void retrieveAuthorName(EntityManager entityManager);
+	public void retrieveAuthorName();
 
 	/**
 	 * Update author from DB
 	 */
-	public void updateAuthorName(EntityManager entityManager);
+	public void updateAuthorName();
 
 	/**
 	 * Delete Author from db
 	 */
-	public void deleteAuthorUsingId(EntityManager entityManager);
+	public void deleteAuthorUsingId();
 
 	/**
 	 * Retrieve Author from DB using Criteria API
 	 */
-	public void retrieveAuthorUsingCriteriaApi(EntityManager entityManager);
+	public void retrieveAuthorUsingCriteriaApi();
 
 	/**
 	 * Update author from DB using Criteria API
 	 */
-	public void updateAuthorNameUsingCriteriaApi(EntityManager entityManager);
+	public void updateAuthorNameUsingCriteriaApi();
 
 	/**
 	 * Delete Author from db using Criteria API
 	 */
-	public void deleteAuthorUsingCriteriaApi(EntityManager entityManager);
+	public void deleteAuthorUsingCriteriaApi();
 
 }
