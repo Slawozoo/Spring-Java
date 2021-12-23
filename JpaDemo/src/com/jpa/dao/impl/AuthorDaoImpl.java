@@ -87,19 +87,16 @@ public class AuthorDaoImpl implements IAuthorDao {
 	}
 
 	@Override
-	public void retrieveAuthorName() {
+	public List<Object[]> retrieveAuthorName() {
 		EntityTransaction entityTransaction = entityManager.getTransaction();
 		entityTransaction.begin();
 		// Scalar function
 		List<Object[]> rows = entityManager.createQuery("Select author.firstName, author.lastName from Authors author")
 				.getResultList();
-		System.out.println(" Authors: ");
-		for (Object[] row : rows) {
-			System.out.println("First Name: " + row[0]);
-			System.out.println("Last Name: " + row[1]);
-		}
+		
 		entityTransaction.commit();
 		entityManager.close();
+		return rows;
 	}
 
 	@Override
@@ -145,7 +142,7 @@ public class AuthorDaoImpl implements IAuthorDao {
 	}
 
 	@Override
-	public void retrieveAuthorUsingCriteriaApi() {
+	public List<Authors> retrieveAuthorUsingCriteriaApi() {
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Authors> criteriaQuery = criteriaBuilder.createQuery(Authors.class);
 		Root<Authors> rootAuthor = criteriaQuery.from(Authors.class);
@@ -153,8 +150,8 @@ public class AuthorDaoImpl implements IAuthorDao {
 
 		Query query = entityManager.createQuery(select);
 		List<Authors> authorList = query.getResultList();
-		authorList.forEach(System.out::println);
-
+		
+		return authorList;
 	}
 
 	@Override

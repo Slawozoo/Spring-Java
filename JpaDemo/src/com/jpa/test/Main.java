@@ -1,5 +1,6 @@
 package com.jpa.test;
 
+import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.context.ApplicationContext;
@@ -49,7 +50,8 @@ public class Main {
 			break;
 		case 5:
 			// retrieve author first and last name
-			mainApp.authorDao.retrieveAuthorName();
+			List<Object[]> rowsName = mainApp.authorDao.retrieveAuthorName();
+			displayAuthorName(rowsName);
 			break;
 		case 6:
 			// update authors using JPQL
@@ -61,7 +63,8 @@ public class Main {
 			break;
 		case 8:
 			// Retrieve authors using Criteria API
-			mainApp.authorDao.retrieveAuthorUsingCriteriaApi();
+			List<Authors> authorList = mainApp.authorDao.retrieveAuthorUsingCriteriaApi();
+			displayAuthorsList(authorList);
 			break;
 		case 9:
 			// update authors using Criteria API
@@ -76,7 +79,30 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Display authors list
+	 */
+	private static void displayAuthorsList(List<Authors> authorList) {
+		authorList.forEach(System.out::println);
+		
+	}
+
+	/**
+	 * Display author's first and last name
+	 */
+	private static void displayAuthorName(List<Object[]> rowsName) {
+		for (Object[] row : rowsName) {
+			System.out.println("First Name: " + row[0]);
+			System.out.println("Last Name: " + row[1]);
+		}
+		
+	}
+
+	/**
+	 *Display author
+	 */
 	private static void displayAuthor(Authors author) {
+		System.out.println(" Authors: ");
 		if (author != null) {
 			System.out.println("FirstName: " + author.getFirstName() + " LastName: " + author.getLastName()
 					+ " Address: " + author.getAddress() + " Institution: " + author.getInstitution() + " Email: "
@@ -84,4 +110,5 @@ public class Main {
 		}
 		
 	}
+	
 }

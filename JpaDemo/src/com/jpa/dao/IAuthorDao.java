@@ -1,6 +1,6 @@
 package com.jpa.dao;
 
-import javax.persistence.EntityManager;
+import java.util.List;
 
 import com.jpa.model.Authors;
 
@@ -29,7 +29,7 @@ public interface IAuthorDao {
 	/**
 	 * Retrieve Author from DB using JPQL
 	 */
-	public void retrieveAuthorName();
+	public List<Object[]> retrieveAuthorName();
 
 	/**
 	 * Update author from DB
@@ -44,7 +44,7 @@ public interface IAuthorDao {
 	/**
 	 * Retrieve Author from DB using Criteria API
 	 */
-	public void retrieveAuthorUsingCriteriaApi();
+	public List<Authors> retrieveAuthorUsingCriteriaApi();
 
 	/**
 	 * Update author from DB using Criteria API
