@@ -22,7 +22,7 @@ public interface IAuthorDao {
 	 /**
 	 * Method to update author from DB using authorId
 	 */
-	public int updateAuthorById(Authors author);
+	public int updateAuthor(Authors author);
 	 /**
 	 * Method to create and insert into Authors table
 	 */

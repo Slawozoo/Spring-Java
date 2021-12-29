@@ -52,7 +52,7 @@ public class AuthorRestController {
 	@RequestMapping(value = "/authors/{id}", method = RequestMethod.PUT)
 	 public ResponseEntity<Authors> updateAuthorById(@PathVariable("id") int authorId, 
 			 @RequestBody Authors author) {
-	   authorService.updateAuthorById(author);
+	   authorService.updateAuthor(author);
 	  if (author == null) {
 	   return new ResponseEntity<Authors>(HttpStatus.NOT_FOUND);
 	  }

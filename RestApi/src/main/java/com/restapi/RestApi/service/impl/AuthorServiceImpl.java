@@ -36,8 +36,8 @@ public class AuthorServiceImpl implements IAuthorService{
 	}
 
 	@Override
-	public int updateAuthorById(Authors author) {
-		return authorDao.updateAuthorById(author);
+	public int updateAuthor(Authors author) {
+		return authorDao.updateAuthor(author);
 	}
 
 	@Override

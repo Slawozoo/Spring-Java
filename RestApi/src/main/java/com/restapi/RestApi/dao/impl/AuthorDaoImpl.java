@@ -72,7 +72,7 @@ public class AuthorDaoImpl implements IAuthorDao{
 
 	@Override
 	@Transactional
-	public int updateAuthorById(Authors author) {
+	public int updateAuthor(Authors author) {
 		//First method to update Authors using authorId in JPA
 //		Query query = entityManager
 //				.createQuery("Update Authors set firstName = :firstName, lastName = :lastName,"

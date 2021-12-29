@@ -22,7 +22,7 @@ public interface IAuthorService {
 	 /**
 	 * Service method for updating author
 	 */
-	public int updateAuthorById(Authors author);
+	public int updateAuthor(Authors author);
 	 /**
 	 * Service method for creating and inserting into authors table
 	 */
