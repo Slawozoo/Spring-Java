@@ -39,7 +39,7 @@ public class AuthorRestController {
 	 */
 	@RequestMapping(value = "/authors/{id}", method = RequestMethod.GET)
 	 public ResponseEntity<Authors> getAuthor(@PathVariable("id") int authorId) {
-	  Authors author = authorService.getAuthor(authorId);
+	  Authors author = authorService.getAuthorById(authorId);
 	  if (author == null) {
 	   return new ResponseEntity<Authors>(HttpStatus.NOT_FOUND);
 	  }
@@ -50,9 +50,9 @@ public class AuthorRestController {
 	 * Update Authors using authorId and PUT method in Postman
 	 */
 	@RequestMapping(value = "/authors/{id}", method = RequestMethod.PUT)
-	 public ResponseEntity<Authors> updateAuthor(@PathVariable("id") int authorId, 
+	 public ResponseEntity<Authors> updateAuthorById(@PathVariable("id") int authorId, 
 			 @RequestBody Authors author) {
-	   authorService.updateAuthor(author);
+	   authorService.updateAuthorById(author);
 	  if (author == null) {
 	   return new ResponseEntity<Authors>(HttpStatus.NOT_FOUND);
 	  }
@@ -77,13 +77,13 @@ public class AuthorRestController {
 	 * Delete authors using authorId and use DELETE in postman
 	 */
 	@RequestMapping(value = "/authors/delete/{id}", method = RequestMethod.DELETE)
-	 public ResponseEntity<Authors> deleteAuthor(@PathVariable("id") int authorId) {
+	 public ResponseEntity<Authors> deleteAuthorById(@PathVariable("id") int authorId) {
 	  HttpHeaders headers = new HttpHeaders();
-	  Authors author = authorService.getAuthor(authorId);
+	  Authors author = authorService.getAuthorById(authorId);
 	  if (author == null) {   
 	   return new ResponseEntity<Authors>(HttpStatus.NOT_FOUND);
 	  }
-	  authorService.deleteAuthor(authorId);
+	  authorService.deleteAuthorById(authorId);
 	  headers.add("Author Deleted - ", String.valueOf(authorId));
 	  System.out.println("Authors with "+ authorId+ " deleted!!!!");
 	  return new ResponseEntity<Authors>(author, headers, HttpStatus.CONTINUE);

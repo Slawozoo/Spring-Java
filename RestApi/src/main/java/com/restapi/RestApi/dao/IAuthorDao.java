@@ -14,15 +14,15 @@ public interface IAuthorDao {
 	 /**
 	 * Method to retrieve Author from Authors table using authorId
 	 */
-	public Authors getAuthor(int authorId);
+	public Authors getAuthorById(int authorId);
 	 /**
 	 * Method to delete author from DB using authorId
 	 */
-	public int deleteAuthor(int authorId); 
+	public int deleteAuthorById(int authorId); 
 	 /**
 	 * Method to update author from DB using authorId
 	 */
-	public int updateAuthor(Authors author);
+	public int updateAuthorById(Authors author);
 	 /**
 	 * Method to create and insert into Authors table
 	 */

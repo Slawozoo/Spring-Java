@@ -48,14 +48,14 @@ public class AuthorDaoImpl implements IAuthorDao{
 	}
 
 	@Override
-	public Authors getAuthor(int authorId) {
+	public Authors getAuthorById(int authorId) {
 		Authors author = entityManager.find(Authors.class, authorId);
 		return author;
 	}
 
 	@Override
 	@Transactional
-	public int deleteAuthor(int authorId) {
+	public int deleteAuthorById(int authorId) {
 		//Delete author using authorId in JPA
 //		Authors author = entityManager.find(Authors.class, authorId);
 //		entityManager.remove(author);
@@ -72,7 +72,7 @@ public class AuthorDaoImpl implements IAuthorDao{
 
 	@Override
 	@Transactional
-	public int updateAuthor(Authors author) {
+	public int updateAuthorById(Authors author) {
 		//First method to update Authors using authorId in JPA
 //		Query query = entityManager
 //				.createQuery("Update Authors set firstName = :firstName, lastName = :lastName,"
