@@ -14,9 +14,9 @@ import com.mavenmvc.MavenWebProject.model.Authors;
 import com.mavenmvc.MavenWebProject.service.IAuthorService;
 
 @Controller
-public class AuthorRestController {
+public class AuthorController {
 
-	 public AuthorRestController() {
+	 public AuthorController() {
 	}
 	 
 	@Autowired
