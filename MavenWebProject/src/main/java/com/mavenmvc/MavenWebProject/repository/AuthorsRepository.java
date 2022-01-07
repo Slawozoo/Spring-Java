@@ -7,7 +7,4 @@ import com.mavenmvc.MavenWebProject.model.Authors;
 
 @Repository
 public interface AuthorsRepository extends JpaRepository<Authors, Integer>{
-
-	
-	//Spring boot paginate
 }

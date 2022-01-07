@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html>
@@ -23,12 +24,25 @@
 <body style="background-color: #e2e2e2">
 
 	<!-- </h1><a href="add_authors"><h1>Add Authors</h1></a> -->
+	<div class="container">
+    <c:if test="${pageContext.request.userPrincipal.name != null}">
+        <form id="logoutForm" method="POST" action="${contextPath}/logout">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+
+        <h2>Welcome ${pageContext.request.userPrincipal.name}  | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
+    </c:if>
+  </div>
+	
 	<div class="container mt-5">
-				<center><h1>List of authors</h1></center>
-		<a href="../" class="btn btn-info" style="font-weight: bold;">Home</a>
+				<center><h1>List of Authors</h1></center>
+		<a href="/welcome" class="btn btn-info" style="font-weight: bold;">Home</a>
 		<table class="table mt-5 table-info ">
-			<a href="authorsform" class="btn btn-info" style="font-weight: bold;">Add
-				New Authors</a>
+		<sec:authorize access="hasRole('ADMIN')">
+   			<a href="authorsform" class="btn btn-info" style="font-weight: bold;">Add New Authors</a>
+		</sec:authorize>
+			<!-- <a href="authorsform" class="btn btn-info" style="font-weight: bold;">Add
+				New Authors</a> -->
 
 			<thead>
 				<tr>
@@ -50,11 +64,15 @@
 						<td><c:out value="${authors.address}" /></td>
 						<td><c:out value="${authors.institution}" /></td>
 						<td><c:out value="${authors.email}" /></td>
-						<td><a
+						<td>
+						<sec:authorize access="hasRole('ADMIN')">
+						<a
 							href="editauthorsform/<c:out value="${authors.authorId}"/>"
 							class="btn btn-warning">Edit</a> <a
 							href="deleteauthors/<c:out value="${authors.authorId}"/>"
-							class="btn btn-danger">Delete</a></td>
+							class="btn btn-danger">Delete</a>
+							</sec:authorize>
+						</td>
 
 					</tr>
 				</c:forEach>

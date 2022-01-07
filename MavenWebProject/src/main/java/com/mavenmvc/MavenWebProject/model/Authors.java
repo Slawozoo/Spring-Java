@@ -14,30 +14,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Table(name = "authors")
 public class Authors {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "authorid")
 	private Integer authorId;
-	
+
 	@Column(name = "first_name")
 	private String firstName;
-	
+
 	@Column(name = "last_name")
 	private String lastName;
-	
+
 	@Column(name = "email")
 	private String email;
-	
+
 	@Column(name = "address")
 	private String address;
-	
+
 	@Column(name = "institution")
 	private String institution;
-	
+
 	public Authors() {
 	}
-	
-	public Authors(Integer authorId,String firstName,String lastName,
-			String email, String address, String institution) {
+
+	public Authors(Integer authorId, String firstName, String lastName, String email, String address,
+			String institution) {
 		this.authorId = authorId;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -97,13 +97,13 @@ public class Authors {
 	@Override
 	public String toString() {
 		StringBuilder str = new StringBuilder();
-		  str.append("Author Id:- " + getAuthorId());
-		  str.append(" First Name:- " + getFirstName());
-		  str.append(" Last Name:- " + getLastName());
-		  str.append("Address:- " + getAddress());
-		  str.append("Institution:- " + getInstitution());
-		  str.append("Email:- " + getEmail());
-		 return str.toString();
-	
+		str.append("Author Id:- " + getAuthorId());
+		str.append(" First Name:- " + getFirstName());
+		str.append(" Last Name:- " + getLastName());
+		str.append("Address:- " + getAddress());
+		str.append("Institution:- " + getInstitution());
+		str.append("Email:- " + getEmail());
+		return str.toString();
+
 	}
 }

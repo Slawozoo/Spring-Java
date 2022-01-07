@@ -24,7 +24,6 @@ public class AuthorDaoImpl implements IAuthorDao{
 	@Autowired
 	private AuthorsRepository authorsRepository;
 	
-	
 	public AuthorDaoImpl() {
 	}
 
@@ -53,7 +52,7 @@ public class AuthorDaoImpl implements IAuthorDao{
 		authorsRepository.save(authors);
 		return authors.getAuthorId();
 	}
-
+	
 	@Override
 	@Transactional
 	public int createAuthor(Authors authors) {

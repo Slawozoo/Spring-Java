@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import com.mavenmvc.MavenWebProject.dao.IAuthorDao;
 import com.mavenmvc.MavenWebProject.model.Authors;
 import com.mavenmvc.MavenWebProject.service.IAuthorService;
-//import com.mavenwebmvc.dao.IAuthorDao;
-
 
 @Service("authorService")
 public class AuthorServiceImpl implements IAuthorService{
@@ -34,19 +32,16 @@ public class AuthorServiceImpl implements IAuthorService{
 	@Override
 	public int deleteAuthorById(int authorId) {
 		return authorDao.deleteAuthorById(authorId);
-//		return authorId;
 	}
 
 	@Override
 	public int updateAuthor(Authors author) {
 		return authorDao.updateAuthor(author);
-//		return author.getAuthorId();
 	}
 
 	@Override
 	public int createAuthor(Authors author) {
 		return authorDao.createAuthor(author);
-//		return ;
 	}
 
 }
