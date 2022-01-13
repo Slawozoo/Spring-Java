@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.restapi.RestApi.dao.IAuthorDao;
-import com.restapi.RestApi.model.Authors;
+import com.restapi.RestApi.model.Users;
 import com.restapi.RestApi.service.IAuthorService;
 
 
@@ -19,14 +19,14 @@ public class AuthorServiceImpl implements IAuthorService{
 	public AuthorServiceImpl() {
 	}
 	@Override
-	public List<Authors> getAuthor() {
-		List<Authors> authorLists =	authorDao.getAuthor();
+	public List<Users> getAuthor() {
+		List<Users> authorLists =	authorDao.getAuthor();
 		return authorLists;
 	}
 
 	@Override
-	public Authors getAuthorById(int authorId) {
-		Authors author = authorDao.getAuthorById(authorId);
+	public Users getAuthorById(int authorId) {
+		Users author = authorDao.getAuthorById(authorId);
 		return author;
 	}
 
@@ -36,12 +36,12 @@ public class AuthorServiceImpl implements IAuthorService{
 	}
 
 	@Override
-	public int updateAuthor(Authors author) {
+	public int updateAuthor(Users author) {
 		return authorDao.updateAuthor(author);
 	}
 
 	@Override
-	public int createAuthor(Authors author) {
+	public int createAuthor(Users author) {
 		return authorDao.createAuthor(author);
 	}
 

@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "authors")
-public class Authors {
+public class Users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	@Column(name = "authorid")
@@ -33,11 +33,11 @@ public class Authors {
 	@Column(name = "institution")
 	private String institution;
 	
-	public Authors() {
+	public Users() {
 	}
 	
 	@JsonCreator
-	public Authors(@JsonProperty("authorId") int authorId, @JsonProperty("firstName")String firstName, @JsonProperty("lastName")String lastName,
+	public Users(@JsonProperty("authorId") int authorId, @JsonProperty("firstName")String firstName, @JsonProperty("lastName")String lastName,
 			@JsonProperty("email")String email, @JsonProperty("address")String address, @JsonProperty("institution")String institution) {
 		this.authorId = authorId;
 		this.firstName = firstName;

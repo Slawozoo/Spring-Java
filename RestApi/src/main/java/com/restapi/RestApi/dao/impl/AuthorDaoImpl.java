@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.restapi.RestApi.dao.IAuthorDao;
-import com.restapi.RestApi.model.Authors;
+import com.restapi.RestApi.model.Users;
 
 @Service("authorDao")
 public class AuthorDaoImpl implements IAuthorDao{
@@ -30,7 +30,7 @@ public class AuthorDaoImpl implements IAuthorDao{
 	}
 	
 	@Override
-	public List<Authors> getAuthor() {
+	public List<Users> getAuthor() {
 		//Retriving list of authors using JPA
 //		TypedQuery<Authors> query =
 //			      entityManager.createQuery("SELECT a FROM Authors a", Authors.class);
@@ -38,18 +38,18 @@ public class AuthorDaoImpl implements IAuthorDao{
 		
 		//Retrieving List of authors using Criteria Api
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Authors> criteriaQuery = criteriaBuilder.createQuery(Authors.class);
-		Root<Authors> rootAuthor = criteriaQuery.from(Authors.class);
-		CriteriaQuery<Authors> select = criteriaQuery.select(rootAuthor);
+		CriteriaQuery<Users> criteriaQuery = criteriaBuilder.createQuery(Users.class);
+		Root<Users> rootAuthor = criteriaQuery.from(Users.class);
+		CriteriaQuery<Users> select = criteriaQuery.select(rootAuthor);
 		Query query = entityManager.createQuery(select);
-		List<Authors> authorList = query.getResultList();
+		List<Users> authorList = query.getResultList();
 		
 		return authorList;
 	}
 
 	@Override
-	public Authors getAuthorById(int authorId) {
-		Authors author = entityManager.find(Authors.class, authorId);
+	public Users getAuthorById(int authorId) {
+		Users author = entityManager.find(Users.class, authorId);
 		return author;
 	}
 
@@ -62,8 +62,8 @@ public class AuthorDaoImpl implements IAuthorDao{
 		
 		//Delete author using authorId in criteria Api
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-		CriteriaDelete<Authors> delete = cb.createCriteriaDelete(Authors.class);
-		Root rootAuthor = delete.from(Authors.class);
+		CriteriaDelete<Users> delete = cb.createCriteriaDelete(Users.class);
+		Root rootAuthor = delete.from(Users.class);
 		delete.where(cb.equal(rootAuthor.get("authorId"), authorId));
 		entityManager.createQuery(delete).executeUpdate();
 		
@@ -72,7 +72,7 @@ public class AuthorDaoImpl implements IAuthorDao{
 
 	@Override
 	@Transactional
-	public int updateAuthor(Authors author) {
+	public int updateAuthor(Users author) {
 		//First method to update Authors using authorId in JPA
 //		Query query = entityManager
 //				.createQuery("Update Authors set firstName = :firstName, lastName = :lastName,"
@@ -87,8 +87,8 @@ public class AuthorDaoImpl implements IAuthorDao{
 		
 		//Update author using critera API
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-		CriteriaUpdate<Authors> update = cb.createCriteriaUpdate(Authors.class);
-		Root rootAuthor = update.from(Authors.class);
+		CriteriaUpdate<Users> update = cb.createCriteriaUpdate(Users.class);
+		Root rootAuthor = update.from(Users.class);
 		update.set("firstName", author.getFirstName());
 		update.set("lastName", author.getLastName());
 		update.set("address", author.getAddress());
@@ -102,7 +102,7 @@ public class AuthorDaoImpl implements IAuthorDao{
 
 	@Override
 	@Transactional
-	public int createAuthor(Authors author) {
+	public int createAuthor(Users author) {
 
 		//First way to insert into Authors table
 		//Also insert authorId in this method
