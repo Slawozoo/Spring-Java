@@ -38,6 +38,9 @@ class EmployeeServiceImplTest {
 		MockitoAnnotations.initMocks(this);
 	}
 
+	/**
+	 * Service Test for Creating new Employee
+	 */
 	@Test
 	public void whenSaveEmployee_shouldReturnEmployee() {
 		Employee employee = new Employee();
@@ -49,6 +52,9 @@ class EmployeeServiceImplTest {
 		verify(employeeRepository).save(employee);
 	}
 
+	/**
+	 * Service Test for retriving Employee using id
+	 */
 	@Test
 	public void whenGivenId_shouldReturnEmployee_ifFound() {
 		Employee employee = new Employee();
@@ -61,6 +67,9 @@ class EmployeeServiceImplTest {
 		verify(employeeRepository).getById(employee.getId());
 	}
 
+	/**
+	 * Service Test for delete Employee using id
+	 */
 	@Test
 	public void deleteUser_whenDeleteEmployee() {
 		Employee employee = new Employee();
@@ -71,6 +80,9 @@ class EmployeeServiceImplTest {
 		verify(employeeRepository).deleteById(employee.getId());
 	}
 
+	/**
+	 * Service Test for retriving all employees
+	 */
 	@Test
 	public void shouldReturnAllEmployees() {
 		List<Employee> employees = new ArrayList();
@@ -81,6 +93,9 @@ class EmployeeServiceImplTest {
 		verify(employeeRepository).findAll();
 	}
 
+	/**
+	 * Service Test for updating Existing employee
+	 */
 	@Test
 	public void whenGivenId_shouldUpdateEmployee_ifFound() {
 		Employee employee = new Employee();
